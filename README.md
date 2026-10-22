@@ -19,11 +19,11 @@ Run it with integers supplied as separate arguments:
 ./push_swap 4 67 3 87 23
 ```
 
-To verify the result with the official checker, when available:
+To verify the result with the included Linux checker:
 
 ```sh
 ARG="4 67 3 87 23"
-./push_swap $ARG | ./checker_linux $ARG
+./push_swap $ARG | ./subject/checker_linux $ARG
 ```
 
 A valid sequence produces `OK`. The program produces no output when the input
@@ -82,7 +82,10 @@ based on input size:
 ├── srcs/                  # parsing, operations, costs, and sorting logic
 ├── libft/                 # bundled support library
 ├── Makefile
-└── en.subject_push_swap.pdf
+└── subject/
+    ├── checker_linux      # official Linux checker
+    ├── checker_Mac        # official Intel macOS checker
+    └── en.subject_push_swap.pdf
 ```
 
 ## Makefile targets
@@ -105,13 +108,23 @@ ARG=$(seq 1 100 | shuf | tr '\n' ' ')
 ./push_swap $ARG | wc -l
 ```
 
-If the official checker is available, validate the same sequence with:
+Validate the same sequence on Linux with:
 
 ```sh
-./push_swap $ARG | ./checker_linux $ARG
+./push_swap $ARG | ./subject/checker_linux $ARG
 ```
+
+On an Intel Mac, use the macOS checker instead:
+
+```sh
+./push_swap $ARG | ./subject/checker_Mac $ARG
+```
+
+The checker prints `OK` when the operations sort the input, `KO` when they do
+not, and `Error` for invalid input or operations. `checker_Mac` is an x86-64
+binary and may not run natively on Apple Silicon without Rosetta.
 
 ## Project subject
 
 The complete assignment is available in
-[en.subject_push_swap.pdf](./en.subject_push_swap.pdf).
+[subject/en.subject_push_swap.pdf](./subject/en.subject_push_swap.pdf).
